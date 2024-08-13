@@ -3,22 +3,22 @@ import random
 
 
 def get_random_pokemon():
-    base_url = 'https://pokeapi.co/api/v2/'
+    base_url = 'https://pokeapi.co/api/v2/'  # API url
 
-    random_id = random.randint(1, 494)
+    random_id = random.randint(1, 494)  # randomly generates number from 1 to 494. will be ID of pokemon. Used to randomly select Pokemon
     pokemon_response = requests.get(f"{base_url}/pokemon/{random_id}")
 
-    if pokemon_response.status_code == 200:
+    if pokemon_response.status_code == 200:  # status code for the response from the API
         random_data = pokemon_response.json()
         pokemon_name = random_data['name']
 
         height_dm = random_data['height']
-        height_m = height_dm / 10
+        height_m = height_dm / 10  # Converts the standard units of measurement the api uses to be meters ang kilograms
 
         weight_hg = random_data['weight']
         weight_kg = weight_hg / 10
 
-        if 1 <= random_id <= 151:
+        if 1 <= random_id <= 151:  # sets the region based on the id of the Pokemon, ID is randomly generated
             region = "Kanto"
         elif 152 <= random_id <= 251:
             region = "Johto"
@@ -30,7 +30,8 @@ def get_random_pokemon():
             region = "unknown"
 
         first_letter = random_data['name'].capitalize()
-        facts = [
+
+        facts = [  # a list of facts about the randomly selected Pokemon
             f"First Letter of name: {first_letter[0]}",
             f"Region: {region}",
             f"Height: {height_m:.2f} meters",
@@ -66,7 +67,7 @@ def main_game():
             game_running = True
 
             while game_running and guesses > 0:
-                print(f"\n".join(facts))
+                print(f"\n".join(facts))  # joins the list of facts and prints each one on a new line
                 print("")
                 guess = input("Guess the pokemon: ").lower()
 
